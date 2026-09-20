@@ -1,0 +1,18 @@
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Local environment and dependencies
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+
+# Generated files
+__pycache__/
+*.py[cod]
+
