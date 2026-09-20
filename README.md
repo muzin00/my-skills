@@ -23,6 +23,7 @@ my-skills/
 | Skill | 用途 |
 | --- | --- |
 | [`issue-checkout`](skills/issue-checkout/README.md) | GitHub Issueのタイトルからブランチ名を生成し、作成・切り替えする |
+| [`pr-merge`](skills/pr-merge/README.md) | 現在のブランチのPull Requestを確認し、squash mergeしてベースブランチを最新化する |
 
 ## 記述言語
 
