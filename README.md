@@ -18,6 +18,16 @@ my-skills/
 
 必要のないディレクトリは作成しません。
 
+## 収録Skill
+
+| Skill | 用途 |
+| --- | --- |
+| [`issue-checkout`](skills/issue-checkout/README.md) | GitHub Issueのタイトルからブランチ名を生成し、作成・切り替えする |
+
+## 記述言語
+
+複数のエージェントで再利用しやすいよう、`SKILL.md`のメタデータと指示は原則として英語で記述します。利用者向けの概要や使い方は、各Skill直下の`README.md`に日本語で記載します。
+
 ## Skillの追加
 
 `skills/<skill-name>/SKILL.md` を作成します。名前には小文字、数字、ハイフンを使用します。
@@ -69,4 +79,3 @@ npx skills add <owner>/my-skills \
 ## ライセンス
 
 ライセンスは未設定です。公開または共有する前に、用途に合うライセンスを追加してください。
-
