@@ -1,20 +1,16 @@
 ---
 name: pr-merge
-description: Merge the pull request for the current Git branch after validating its state and checks, then update its base branch. Use only when the user explicitly asks to merge the current branch's pull request.
+description: Squash merge the current branch's GitHub pull request and return to its updated base branch. Use only when the user explicitly requests merging.
 ---
 
 # Pull Request Merge
 
-Safely merge the pull request for the current branch and return to its updated base branch.
+Invocation authorizes merging and branch cleanup without intermediate confirmation.
 
-## Workflow
+1. Require a clean Git worktree and attached branch. Read `gh pr view --json number,url,state,isDraft,reviewDecision,statusCheckRollup,baseRefName`. Stop for a missing or non-open PR, draft, requested changes, or failed/cancelled checks.
+2. If checks are pending, report them and stop. Wait only when the user explicitly requests it: use `gh pr checks <number> --watch --fail-fast`, then refresh the PR once and apply the same stop conditions. GitHub enforces conflicts and repository protections at merge time.
+3. Run `gh pr merge <number> --squash --delete-branch`. Never use `--admin` or bypass protections. Confirm with `gh pr view <number> --json state`; if still queued or awaiting merge, report that and leave the local branch alone.
+4. After confirmed merge, ensure the active branch is `baseRefName`. If `gh` already switched and successfully updated it, skip redundant checkout and pull. Otherwise switch as needed and run `git pull --ff-only`. Report the PR URL and active branch; report any cleanup/update failure separately from merge success.
 
-1. Confirm the current directory is a Git worktree with no uncommitted changes.
-2. Run `gh pr view --json number,url,title,state,isDraft,mergeable,mergeStateStatus,reviewDecision,statusCheckRollup,baseRefName` for the current branch.
-3. Stop and report the reason if there is no open pull request, it is a draft, it has requested changes, it has conflicts, or GitHub reports it as blocked.
-4. Inspect all checks. If any are pending, run `gh pr checks --watch`, then refresh the pull request state. Stop and report any failed checks.
-5. Run `gh pr merge --squash --delete-branch`. Do not use administrator privileges or bypass repository protections.
-6. Verify that the pull request was merged. If it was queued instead, report that state and stop without changing the local branch.
-7. Switch to the pull request's `baseRefName` and run `git pull --ff-only`.
-8. Report the pull request URL and the active, updated base branch.
+On failure, stop without force, discarding changes, or destructive workarounds.
 
