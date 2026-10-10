@@ -48,6 +48,27 @@ description: このSkillが何を行い、どのような依頼で使用する�
 
 `name` と `description` は必須です。補足資料やスクリプトは、実際に必要になった場合だけ追加します。
 
+## CLIの管理と同期
+
+`skills` CLIは開発依存としてバージョンを固定し、`package-lock.json`で管理します。Node.js 22.20.0以上とnpmが必要です。
+
+```bash
+npm ci
+npm run sync
+```
+
+`npm run sync`は、このチェックアウトの全SkillをCodexのユーザー環境へ同期します。特定のSkillだけ同期する場合:
+
+```bash
+npm run sync -- --skill pr-create pr-merge
+```
+
+その他のCLI操作も、プロジェクトで管理しているバージョンを使えます。
+
+```bash
+npm run skills -- --help
+```
+
 ## 別プロジェクトへの導入
 
 公開後は、`skills` CLIを使ってCodexとClaude Codeの両方へ導入できます。
