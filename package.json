@@ -1,0 +1,14 @@
+{
+  "name": "my-skills",
+  "private": true,
+  "scripts": {
+    "skills": "skills",
+    "sync": "skills add . --agent codex --global --yes"
+  },
+  "devDependencies": {
+    "skills": "1.7.0"
+  },
+  "engines": {
+    "node": ">=22.20.0"
+  }
+}
